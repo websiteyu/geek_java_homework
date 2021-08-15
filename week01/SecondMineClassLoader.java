@@ -1,9 +1,13 @@
 package com.mine;
 
 import java.io.*;
+import java.util.Properties;
 
 public class SecondMineClassLoader extends ClassLoader {
     public SecondMineClassLoader(String basePath,String fileSuffix){
+        if(basePath==null||"".equals(basePath)||fileSuffix==null||"".equals(fileSuffix)){
+            throw new RuntimeException("入参为空!");
+        }
         BASE_PATH = basePath;
         FILE_SUFFIX = "."+fileSuffix;
     }
@@ -39,9 +43,25 @@ public class SecondMineClassLoader extends ClassLoader {
 
     }
 
+    public static Properties getProperties(){
+        Properties properties = new Properties();
+        final String OS_NAME = System.getProperty("os.name");
+        String basePath = "";
+        if(OS_NAME.startsWith("Windows")){
+            basePath = "E:\\workspace\\study\\geek_classloader\\resources\\";
+        }else if(OS_NAME.startsWith("Linux")){
+            basePath = "E:/workspace/study/geek_classloader/resources/";
+        }else if(OS_NAME.startsWith("Mac")){
+            basePath = "E:/workspace/study/geek_classloader/resources/";
+        }
+        properties.setProperty("basePath",basePath);
+        properties.setProperty("fileSuffix","xlass");
+        return properties;
+    }
 
     public static void main(String[] args) throws ClassNotFoundException {
-        SecondMineClassLoader myClassLoader = new SecondMineClassLoader("E:\\workspace\\study\\geek_classloader\\resources\\","xlass");
+        Properties properties = getProperties();
+        SecondMineClassLoader myClassLoader = new SecondMineClassLoader(properties.getProperty("basePath"),properties.getProperty("fileSuffix"));
         myClassLoader.findClass("Hello");
     }
 }
