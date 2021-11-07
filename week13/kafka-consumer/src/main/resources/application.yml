@@ -1,0 +1,12 @@
+server:
+  port: 9999
+spring:
+  kafka:
+    bootstrap-servers: http://localhost:9001,http://localhost:9002,http://localhost:9003
+    consumer:
+      group-id: consumer-group-test
+      auto-offset-reset: earliest
+      enable-auto-commit: true
+      auto-commit-interval: 20000
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer

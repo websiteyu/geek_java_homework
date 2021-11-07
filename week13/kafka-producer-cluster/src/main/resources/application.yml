@@ -1,0 +1,9 @@
+spring:
+  kafka:
+    bootstrap-servers: http://localhost:9001,http://localhost:9002,http://localhost:9003
+    producer:
+      retries: 0
+      batch-size: 16384
+      buffer-memory: 33554432
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
